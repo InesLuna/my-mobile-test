@@ -1,8 +1,14 @@
 import React from 'react';
 
-const ItemCard = () => {
+const ItemCard = (props) => {
+  const { product } = props;
   return (
-    <div>ItemCard</div>
+    <div>
+      <img src={product.imgUrl} alt={product.model} />
+      <p>{product.model}</p>
+      <p>{product.brand}</p>
+      <p>{product.price}</p>
+    </div>
   );
 };
 

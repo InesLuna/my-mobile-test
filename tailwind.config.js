@@ -12,7 +12,12 @@ module.exports = {
       xl: '1600px',
       '2xl': '1920px',
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        anton: ['Anton', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif']
+      },
+    },
   },
   plugins: [],
 };
