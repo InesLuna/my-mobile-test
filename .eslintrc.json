@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb"
+        "react-app",
+        "plugin:react-redux/recommended"
     ],
     "overrides": [
     ],
@@ -17,7 +18,8 @@
         }
     },
     "plugins": [
-        "react"
+        "react",
+        "react-redux"
     ],
     "rules": {
         "react/function-component-definition": [
@@ -26,6 +28,8 @@
               "namedComponents": "arrow-function",
               "unnamedComponents": "arrow-function"
             }
-          ]
+          ],
+        "react-redux/connect-prefer-named-arguments": 2,
+        "indent": ["error", 2]
     }
 }
