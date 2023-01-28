@@ -13,7 +13,7 @@ const Description = (props) => {
   const camarasInfo = (productInfo) => {
     let primaryCameraString = '';
     let secondaryCameraString = '';
-    console.log(productInfo.primaryCamera, 'productInfo')
+
     if(productInfo.primaryCamera) {
       if(typeof productInfo.primaryCamera === 'string') {
         primaryCameraString = productInfo.primaryCamera;
@@ -35,8 +35,8 @@ const Description = (props) => {
 
   return (
     <div>
-      <p className='font-roboto font-bold text-2xl text-amber-500 mt-6'>{productInfo.model}</p>
-      <p className='font-roboto text-lg font-bold text-stone-800 mt-3 mb-5'>{productInfo.brand}</p>
+      <p className='font-roboto font-bold text-4xl text-amber-500 mt-6'>{productInfo.model}</p>
+      <p className='font-roboto text-lg font-bold text-stone-800 mt-1 mb-5'>{productInfo.brand}</p>
       <ul>
         <LiItem label='Sistema operativo: ' info={productInfo.os} />
         <LiItem label='RAM: ' info={productInfo.ram} />

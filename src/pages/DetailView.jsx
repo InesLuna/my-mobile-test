@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import Breadcrum from '../components/Breadcrum';
 import Description from '../components/Description';
+import ColorSelector from '../components/ColorSelector';
 
 
 const DetailView = () => {
@@ -17,36 +18,33 @@ const DetailView = () => {
   const actualProductDetailsListState = (state) => state.detailList.detailIds;
   const productDetailsList = useSelector(actualProductDetailsListState);
   const [ productInfo, setProductInfo ] = useState(null);
+  const [ selectedColor, setSelectedColor ] = useState(null);
 
-  useEffect(()=> {
-    console.log(productInfo,'productInfo');
-  }, [productInfo]);
-
-  const dataDetailsOompa = async (num) => {
+  const dataDetails = async (num) => {
     const data = await getProductDetails(num);
-    console.log('ola que ase')
     if(data) {
-      console.log(data);
+      console.log(data.options.colors, 'data')
       dispatch(detailAdd(data));
       dispatch(detailIdsAdd(actualProductId));
       setProductInfo(data);
+      setSelectedColor(data.options.colors[0]);
     }
   };
 
   useEffect(()=>{
-    dataDetailsOompa(actualProductId)
-    // if(productIdsList.includes(actualProductId)){ 
-    //   const aux = productDetailsList.filter((o) => o.id === `${actualProductId}`);
-    //   const auxDate = Number(Date());
-    //   if(aux.timestamp - auxDate !== 86400000) {
-    //     setProductInfo(aux[0]);
-    //   } else {
-    //     dispatch(detailReplace(aux[0]));
-    //   }
+    // dataDetails(actualProductId)
+    if(productIdsList.includes(actualProductId)){ 
+      const aux = productDetailsList.filter((o) => o.id === `${actualProductId}`);
+      const auxDate = Number(Date());
+      if(aux.timestamp - auxDate !== 86400000) {
+        setProductInfo(aux[0]);
+      } else {
+        dispatch(detailReplace(aux[0]));
+      }
         
-    // } else {
-    //   dataDetailsOompa(actualProductId)
-    // }  
+    } else {
+      dataDetails(actualProductId)
+    }  
   }, [actualProductId]);
 
   return (
@@ -60,6 +58,7 @@ const DetailView = () => {
           <div className='flex justify-center p-6'>
             <img src={productInfo.imgUrl} alt={productInfo.model} className='m-16'/>
             <Description productInfo={productInfo} />
+            <ColorSelector selectedColor={selectedColor} setSelectedColor={setSelectedColor} colorList={productInfo.options.colors} />
           </div>
         ) : (
           <div>

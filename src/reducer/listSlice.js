@@ -7,7 +7,7 @@ export const listSlice = createSlice({
   },
   reducers: {
     listAdd: (state, action) => {
-      state.value = [...state.value, ...action.payload];
+      state.value = [...action.payload];
     },
   },
 });

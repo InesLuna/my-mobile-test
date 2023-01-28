@@ -25,7 +25,7 @@ const GeneralView = () => {
   };
 
   useEffect(()=> {
-    dataList();
+    if(productList.length <= 0 ) dataList();
   }, []);
 
   useEffect(() => {
