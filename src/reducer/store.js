@@ -7,6 +7,6 @@ export default configureStore({
   reducer: {
     counter: counterReducer,
     list: listSlice,
-    detailsList: detailSlice,
+    detailList: detailSlice,
   },
 });

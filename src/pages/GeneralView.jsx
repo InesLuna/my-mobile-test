@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { listAdd } from '../reducer/listSlice';
 import Header from '../components/Header';
 import ItemCard from '../components/ItemCard';
+import GoTopButton from '../components/GoTopButton';
+import Breadcrum from '../components/Breadcrum';
+import SearchInput from '../components/SearchInput';
 
 const GeneralView = () => {
 
@@ -13,6 +16,7 @@ const GeneralView = () => {
 
   const [ filterProductList, setFilterProductList ] = useState([]);
   const [ inputValue, setInputValue ] = useState('');
+  const [ showButton, setShowButton ] = useState(false);
 
   const dataList = async () => {
     await getProductsList().then((data) => {
@@ -31,44 +35,49 @@ const GeneralView = () => {
 
   useEffect(()=> {
     setFilterProductList(filterList(inputValue));
-    console.log(productList);
   }, [productList, inputValue]);
 
   const filterList = (text) => {
     let list = productList;
-    if (text !== '') {
+    const lowerText = text.toLowerCase();
+    if (lowerText !== '') {
       list = productList.filter((p) => {
-        return p.model.includes(text) || p.brand.includes(text);
+        return p.model.toLowerCase().includes(lowerText) || p.brand.toLowerCase().includes(lowerText);
       });
     }
     return list;
   };
 
   const handleChange = (e) => {
-    //setInputValue(e.target.value);
+    setInputValue(e.target.value);
   };
   const onScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-  
-    if (scrollTop + clientHeight >= scrollHeight) {
-      //dispatch(increment(count));
-    }
 
     if (scrollTop > 1000) {
-      //setShowButton('block');
+      setShowButton('block');
     } else {
-      //setShowButton('hidden');
+      setShowButton('hidden');
     }
   };
 
 
   return ( 
-    <div className=''>
+    <div className='bg-stone-100 '>
       <Header/>
+      <div className='flex flex-wrap justify-between px-16'>
+        <Breadcrum/>
+        <SearchInput handleChange={handleChange}/>
+      </div>
+      
+      <div className='flex flex-wrap justify-between px-16'>
+        {
+          filterProductList.map((p) =>  <ItemCard key={p.id} product={p} /> )
+        }
+      </div>
+      
       {
-        filterProductList.map((p) =>  <ItemCard key={p.id} product={p} /> )
+        showButton ? <GoTopButton showButton={showButton}/> : null
       }
     </div>
   )

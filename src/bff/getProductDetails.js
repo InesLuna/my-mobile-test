@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { baseUrl } from './baseUrl';
 
-export const getProductsDetail = async (productId) => {
+export const getProductDetails = async (productId) => {
   const url = `${baseUrl}/api/product/${productId}`;
   return await axios.get(url)
     .then(data => { 

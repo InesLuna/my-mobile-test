@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GoTopButton = (props) => {
+const GoTopButton = (props) => {
   const { showButton } = props;
       
   const handleClick = () => {
@@ -14,9 +14,11 @@ export const GoTopButton = (props) => {
         e.preventDefault();
         handleClick();
       }}
-      className={`bg-black rounded-full w-20 h-20 text-white font-black ${showButton} fixed bottom-10 right-10`}
+      className={`bg-amber-500 rounded-full w-20 h-20 text-stone-900 font-black ${showButton} fixed bottom-10 right-10`}
     >
       Go Top!
     </button>
   );
 };
+
+export default GoTopButton;

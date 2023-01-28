@@ -4,7 +4,7 @@ import CartIcon from './CartIcon';
 
 const Header = () => {
   return (
-    <div className='shadow-xl flex justify-between py-5 px-10'>
+    <div className='shadow-xl flex justify-between py-5 px-10 bg-white'>
       <Icon/>
       <CartIcon/>
     </div>

@@ -4,17 +4,16 @@ export const detailSlice = createSlice({
   name: 'detailList',
   initialState: {
     detailIds: [],
-    actualId: 1,
+    actualId: '',
     detailDetailsList: [],
-    actualOompa: {}
   },
   reducers: {
     detailAdd: (state, action) => {
-      state.detailList.push(action.payload)
+      state.detailDetailsList.push(action.payload)
     },
     detailReplace: (state, action) => {
-      const aux = state.detailList.filter((o) => action.payload.id !== o.id );
-      state.detailList = [...aux, action.payload];
+      const aux = state.detailDetailsList.filter((o) => action.payload.id !== o.id );
+      state.detailDetailsList = [...aux, action.payload];
     },
     detailIdsAdd: (state, action) => {
       state.detailIds.push(action.payload)
