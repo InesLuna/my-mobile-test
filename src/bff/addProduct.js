@@ -10,6 +10,7 @@ export const addProduct = async (productId, colorCode, storageCode) => {
   })
     .then((response) => {
       console.log(response);
+      return response
     }, (error) => {
       console.log(error);
     });

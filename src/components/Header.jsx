@@ -6,6 +6,8 @@ import SearchInput from './SearchInput';
 
 const Header = (props) => {
   const { generalView, handleChange, errorView } = props;
+  
+
   return (
     <>
       <div className='shadow-xl flex justify-between py-5 px-6 md:px-10 bg-white'>

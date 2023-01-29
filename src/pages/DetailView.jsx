@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { detailIdsAdd, detailAdd, loadingSet, detailSetActualProduct } from '../reducer/detailSlice';
-import { Link } from "react-router-dom";
-import { getProductDetails } from '../bff/getProductDetails';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
+import { detailIdsAdd, detailAdd, loadingSet, detailSetActualProduct } from '../reducer/detailSlice';
+import { cartAdd, cartCounter } from '../reducer/cartSlice';
+import { getProductDetails } from '../bff/getProductDetails';
+import { addProduct } from '../bff/addProduct';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import Description from '../components/Description';
@@ -47,6 +49,20 @@ const DetailView = () => {
     }  
   }, [actualProductId]);
 
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const aux = {
+      id: actualProduct.id,
+      colorCode: selectedColor.code,
+      storageCode: selectedStorage.code
+    };
+    const productQuantity = await addProduct(aux);
+    if(productQuantity) {
+      dispatch(cartAdd(productQuantity));
+    }
+    dispatch(cartCounter());
+  }
+
   return (
 
     <div className='bg-stone-50 min-h-screen'>
@@ -63,7 +79,7 @@ const DetailView = () => {
                     <Selector selectedItem={selectedColor} setSelectedItem={setSelectedColor} list={actualProduct?.options.colors} label='Elige un color:' marginRight='mr-10'/>
                     <Selector selectedItem={selectedStorage} setSelectedItem={setSelectedStorage} list={actualProduct?.options.storages} label='Elige el almacenamiento:' />
                   </div>
-                  <AddButton/>
+                  <AddButton handleClick={handleClick}/>
                 </div>
               </section>
             ) : (
