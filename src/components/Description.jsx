@@ -34,10 +34,10 @@ const Description = (props) => {
   };
 
   return (
-    <div>
+    <div className='pb-6'>
       <p className='font-roboto font-bold text-4xl text-amber-500 mt-6'>{productInfo.model}</p>
       <p className='font-roboto text-lg font-bold text-stone-800 mt-1 mb-5'>{productInfo.brand}</p>
-      <ul>
+      <ul className='pb-3'>
         <LiItem label='Sistema operativo: ' info={productInfo.os} />
         <LiItem label='RAM: ' info={productInfo.ram} />
         <LiItem label='CPU: ' info={productInfo.cpu} />
@@ -47,7 +47,7 @@ const Description = (props) => {
         <LiItem label='Dimensiones: ' info={productInfo.dimentions} />
         <LiItem label='Peso: ' info={productInfo.weight} />
       </ul>
-      <p className='font-roboto text-2xl text-teal-800'><span className='font-bold'>Price:</span> {productInfo.price}€</p>
+      <p className='font-roboto text-2xl text-stone-800 font-bold'>Precio: <span className='text-teal-600'>{productInfo.price}€</span> </p>
     </div>
   );
 };

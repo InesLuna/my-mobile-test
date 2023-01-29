@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
 import Breadcrum from '../components/Breadcrum';
 import Description from '../components/Description';
-import ColorSelector from '../components/ColorSelector';
+import AddButton from '../components/AddButton';
+import Selector from '../components/Selector';
 
 
 const DetailView = () => {
@@ -19,15 +20,17 @@ const DetailView = () => {
   const productDetailsList = useSelector(actualProductDetailsListState);
   const [ productInfo, setProductInfo ] = useState(null);
   const [ selectedColor, setSelectedColor ] = useState(null);
+  const [ selectedStorage, setSelectedStorage ] = useState(null);
 
   const dataDetails = async (num) => {
     const data = await getProductDetails(num);
     if(data) {
-      console.log(data.options.colors, 'data')
+      console.log(data.options, 'data')
       dispatch(detailAdd(data));
       dispatch(detailIdsAdd(actualProductId));
       setProductInfo(data);
       setSelectedColor(data.options.colors[0]);
+      setSelectedStorage(data.options.storages[0]);
     }
   };
 
@@ -55,11 +58,17 @@ const DetailView = () => {
       </div>
       {
         productInfo ? (
-          <div className='flex justify-center p-6'>
-            <img src={productInfo.imgUrl} alt={productInfo.model} className='m-16'/>
-            <Description productInfo={productInfo} />
-            <ColorSelector selectedColor={selectedColor} setSelectedColor={setSelectedColor} colorList={productInfo.options.colors} />
-          </div>
+          <section className='flex justify-center p-6 items-center'>
+            <img src={productInfo.imgUrl} alt={productInfo.model} className='mr-16 h-fit'/>
+            <div>
+              <Description productInfo={productInfo} />
+              <div className='flex items-center'>
+                <Selector selectedItem={selectedColor} setSelectedItem={setSelectedColor} list={productInfo.options.colors} label='Elige un color:' marginRight='mr-10'/>
+                <Selector selectedItem={selectedStorage} setSelectedItem={setSelectedStorage} list={productInfo.options.storages} label='Elige el almacenamiento:' />
+              </div>
+              <AddButton/>
+            </div>
+          </section>
         ) : (
           <div>
             Parece que ha habido un error, vuelve a <Link to='/'>la página principal</Link>
