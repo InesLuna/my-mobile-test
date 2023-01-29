@@ -63,14 +63,10 @@ const GeneralView = () => {
 
 
   return ( 
-    <div className='bg-stone-100 '>
-      <Header/>
-      <div className='flex flex-wrap justify-between px-16'>
-        <Breadcrum/>
-        <SearchInput handleChange={handleChange}/>
-      </div>
+    <div className='bg-stone-50 min-h-screen'>
+      <Header generalView handleChange={handleChange}/>
       
-      <div className='flex flex-wrap justify-between px-16'>
+      <div className='flex flex-wrap justify-center px-6 md:px-16'>
         {
           filterProductList.map((p) =>  <ItemCard key={p.id} product={p} /> )
         }

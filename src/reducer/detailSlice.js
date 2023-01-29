@@ -6,6 +6,7 @@ export const detailSlice = createSlice({
     detailIds: [],
     actualId: '',
     detailDetailsList: [],
+    actualProduct: null,
   },
   reducers: {
     detailAdd: (state, action) => {
@@ -21,9 +22,12 @@ export const detailSlice = createSlice({
     detailSetActualId: (state, action) => {
       state.actualId = action.payload;
     },
+    detailSetActualProduct: (state, action) => {
+      state.actualProduct = action.payload;
+    },
   },
 });
 
-export const { detailAdd, detailIdsAdd, detailSetActualId, detailReplace } = detailSlice.actions;
+export const { detailAdd, detailIdsAdd, detailSetActualId, detailReplace, detailSetActualProduct } = detailSlice.actions;
 
 export default detailSlice.reducer;

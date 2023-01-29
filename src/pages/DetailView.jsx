@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { detailIdsAdd, detailAdd, detailReplace } from '../reducer/detailSlice';
+import { detailIdsAdd, detailAdd, detailReplace, detailSetActualProduct } from '../reducer/detailSlice';
 import { Link } from "react-router-dom";
 import { getProductDetails } from '../bff/getProductDetails';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,29 +18,30 @@ const DetailView = () => {
   const productIdsList = useSelector(actualProductIdsListState);
   const actualProductDetailsListState = (state) => state.detailList.detailIds;
   const productDetailsList = useSelector(actualProductDetailsListState);
-  const [ productInfo, setProductInfo ] = useState(null);
+  const actualProductState = (state) => state.detailList.actualProduct;
+  const actualProduct = useSelector(actualProductState);
   const [ selectedColor, setSelectedColor ] = useState(null);
   const [ selectedStorage, setSelectedStorage ] = useState(null);
 
   const dataDetails = async (num) => {
     const data = await getProductDetails(num);
     if(data) {
-      console.log(data.options, 'data')
+      console.log(data, 'data')
       dispatch(detailAdd(data));
-      dispatch(detailIdsAdd(actualProductId));
-      setProductInfo(data);
+      dispatch(detailIdsAdd(num));
+      dispatch(detailSetActualProduct(data));
       setSelectedColor(data.options.colors[0]);
       setSelectedStorage(data.options.storages[0]);
     }
   };
 
   useEffect(()=>{
-    // dataDetails(actualProductId)
+    console.log(actualProductId, 'actualProductId')
     if(productIdsList.includes(actualProductId)){ 
-      const aux = productDetailsList.filter((o) => o.id === `${actualProductId}`);
+      const aux = productDetailsList.filter((p) => p.id === `${actualProductId}`);
       const auxDate = Number(Date());
       if(aux.timestamp - auxDate !== 86400000) {
-        setProductInfo(aux[0]);
+        dispatch(detailSetActualProduct(aux[0]));
       } else {
         dispatch(detailReplace(aux[0]));
       }
@@ -51,20 +52,17 @@ const DetailView = () => {
   }, [actualProductId]);
 
   return (
-    <div className='bg-stone-100 min-h-screen'>
+    <div className='bg-stone-50 min-h-screen'>
       <Header/>
-      <div>
-        <Breadcrum/>
-      </div>
       {
-        productInfo ? (
-          <section className='flex justify-center p-6 items-center'>
-            <img src={productInfo.imgUrl} alt={productInfo.model} className='mr-16 h-fit'/>
+        actualProduct ? (
+          <section className='flex flex-col md:flex-row justify-center p-6 items-center pb-10'>
+            <img src={actualProduct.imgUrl} alt={actualProduct.model} className='md:mr-16 h-fit'/>
             <div>
-              <Description productInfo={productInfo} />
-              <div className='flex items-center'>
-                <Selector selectedItem={selectedColor} setSelectedItem={setSelectedColor} list={productInfo.options.colors} label='Elige un color:' marginRight='mr-10'/>
-                <Selector selectedItem={selectedStorage} setSelectedItem={setSelectedStorage} list={productInfo.options.storages} label='Elige el almacenamiento:' />
+              <Description productInfo={actualProduct} />
+              <div className='flex flex-col md:flex-row md:items-center'>
+                <Selector selectedItem={selectedColor} setSelectedItem={setSelectedColor} list={actualProduct.options.colors} label='Elige un color:' marginRight='mr-10'/>
+                <Selector selectedItem={selectedStorage} setSelectedItem={setSelectedStorage} list={actualProduct.options.storages} label='Elige el almacenamiento:' />
               </div>
               <AddButton/>
             </div>

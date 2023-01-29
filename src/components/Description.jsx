@@ -35,7 +35,7 @@ const Description = (props) => {
 
   return (
     <div className='pb-6'>
-      <p className='font-roboto font-bold text-4xl text-amber-500 mt-6'>{productInfo.model}</p>
+      <p className='font-roboto font-bold text-4xl text-amber-400 mt-10 md:mt-0'>{productInfo.model}</p>
       <p className='font-roboto text-lg font-bold text-stone-800 mt-1 mb-5'>{productInfo.brand}</p>
       <ul className='pb-3'>
         <LiItem label='Sistema operativo: ' info={productInfo.os} />
