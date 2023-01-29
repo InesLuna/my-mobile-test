@@ -18,7 +18,7 @@ const DetailView = () => {
   const actualProductId = useSelector(actualProductIdState);
   const actualProductIdsListState = (state) => state.detailList.detailIds;
   const productIdsList = useSelector(actualProductIdsListState);
-  const actualProductDetailsListState = (state) => state.detailList.detailIds;
+  const actualProductDetailsListState = (state) => state.detailList.detailList;
   const productDetailsList = useSelector(actualProductDetailsListState);
   const actualProductState = (state) => state.detailList.actualProduct;
   const actualProduct = useSelector(actualProductState);
@@ -33,8 +33,8 @@ const DetailView = () => {
     if(data) {
       dispatch(loadingSet(false));
       dispatch(detailAdd(data));
-      dispatch(detailIdsAdd(num));
       dispatch(detailSetActualProduct(data));
+      dispatch(detailIdsAdd(data.id));
       setSelectedColor(data.options.colors[0]);
       setSelectedStorage(data.options.storages[0]);
     }
@@ -43,6 +43,7 @@ const DetailView = () => {
   useEffect(()=>{
     if(productIdsList.includes(actualProductId)){ 
       const aux = productDetailsList.filter((p) => p.id === `${actualProductId}`);
+      console.log(aux)
       dispatch(detailSetActualProduct(aux[0]));    
     } else {
       dataDetails(actualProductId)
@@ -58,7 +59,7 @@ const DetailView = () => {
     };
     const productQuantity = await addProduct(aux);
     if(productQuantity) {
-      dispatch(cartAdd(productQuantity));
+      dispatch(cartAdd(JSON.stringify(productQuantity)));
     }
     dispatch(cartCounter());
   }
@@ -75,10 +76,14 @@ const DetailView = () => {
                 <img src={actualProduct.imgUrl} alt={actualProduct.model} className='md:mr-16 h-fit'/>
                 <div>
                   <Description productInfo={actualProduct} />
-                  <div className='flex flex-col md:flex-row md:items-center'>
-                    <Selector selectedItem={selectedColor} setSelectedItem={setSelectedColor} list={actualProduct?.options.colors} label='Elige un color:' marginRight='mr-10'/>
-                    <Selector selectedItem={selectedStorage} setSelectedItem={setSelectedStorage} list={actualProduct?.options.storages} label='Elige el almacenamiento:' />
-                  </div>
+                  {
+                    selectedColor && selectedStorage ? (
+                      <div className='flex flex-col md:flex-row md:items-center'>
+                        <Selector selectedItem={selectedColor} setSelectedItem={setSelectedColor} list={actualProduct?.options.colors} label='Elige un color:' marginRight='mr-10'/>
+                        <Selector selectedItem={selectedStorage} setSelectedItem={setSelectedStorage} list={actualProduct?.options.storages} label='Elige el almacenamiento:' />
+                      </div>
+                    ) : null
+                  }
                   <AddButton handleClick={handleClick}/>
                 </div>
               </section>

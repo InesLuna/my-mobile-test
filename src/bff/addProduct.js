@@ -1,15 +1,11 @@
 import axios from 'axios';
 import { baseUrl } from './baseUrl';
 
-export const addProduct = async (productId, colorCode, storageCode) => {
-  const url = `${baseUrl}/api/product/${productId}`;
-  return await axios.post(url, {
-    id: productId,
-    colorCode: colorCode,
-    storageCode: storageCode
-  })
+export const addProduct = async (product) => {
+  const url = `${baseUrl}/api/cart`;
+ 
+  return await axios.post(url, product)
     .then((response) => {
-      console.log(response);
       return response
     }, (error) => {
       console.log(error);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getProductsList } from '../bff/getProductsList';
 import { useSelector, useDispatch } from 'react-redux';
-import { listAdd } from '../reducer/listSlice';
+import { listAdd, timestampAdd } from '../reducer/listSlice';
 import Header from '../components/Header';
 import ItemCard from '../components/ItemCard';
 import GoTopButton from '../components/GoTopButton';
@@ -10,21 +10,29 @@ import Loading from '../components/Loading';
 const GeneralView = () => {
 
   const dispatch = useDispatch();
-  const productiListSelector = (state) => state.list.value;
-  const productList = useSelector(productiListSelector);
+  const productListSelector = (state) => state.list.value;
+  const productList = useSelector(productListSelector);
+  const timestampListSelector = (state) => state.list.timestamp;
+  const timestampList = useSelector(timestampListSelector);
 
   const [ filterProductList, setFilterProductList ] = useState([]);
   const [ inputValue, setInputValue ] = useState('');
   const [ showButton, setShowButton ] = useState(false);
 
   const dataList = async () => {
+    const date = new Date();
     await getProductsList().then((data) => {
       dispatch(listAdd([...data]));
+      dispatch(timestampAdd(JSON.stringify(date)));
     });
   };
 
   useEffect(()=> {
-    if(productList.length <= 0 ) dataList();
+    const date = new Date();
+    const oneHour = 60 * 60 * 1000;
+    if((timestampList && (date - timestampList) > oneHour )|| productList.length <= 0 ) {
+      dataList(); 
+    };
   }, []);
 
   useEffect(() => {
@@ -52,7 +60,6 @@ const GeneralView = () => {
   };
   const onScroll = () => {
     const scrollTop = document.documentElement.scrollTop;
-
     if (scrollTop > 1000) {
       setShowButton('block');
     } else {

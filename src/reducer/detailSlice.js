@@ -5,20 +5,16 @@ export const detailSlice = createSlice({
   initialState: {
     detailIds: [],
     actualId: '',
-    detailDetailsList: [],
+    detailList: [],
     actualProduct: null,
     loading: false,
   },
   reducers: {
     detailAdd: (state, action) => {
-      state.detailDetailsList.push(action.payload)
-    },
-    detailReplace: (state, action) => {
-      const aux = state.detailDetailsList.filter((o) => action.payload.id !== o.id );
-      state.detailDetailsList = [...aux, action.payload];
+      state.detailList.push(action.payload);
     },
     detailIdsAdd: (state, action) => {
-      state.detailIds.push(action.payload)
+      state.detailIds.push(action.payload);
     },
     detailSetActualId: (state, action) => {
       state.actualId = action.payload;
@@ -32,6 +28,6 @@ export const detailSlice = createSlice({
   },
 });
 
-export const { detailAdd, detailIdsAdd, detailSetActualId, detailReplace, detailSetActualProduct, loadingSet } = detailSlice.actions;
+export const { detailAdd, detailIdsAdd, detailSetActualId, detailSetActualProduct, loadingSet } = detailSlice.actions;
 
 export default detailSlice.reducer;

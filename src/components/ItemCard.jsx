@@ -17,6 +17,7 @@ const ItemCard = (props) => {
       <p className='font-roboto font-bold text-xl text-stone-900 mt-6'>{product.model}</p>
       <p className='font-roboto text-lg text-stone-800 mt-3'>{product.brand}</p>
       <p className='font-roboto text-lg text-teal-800'><span className='font-bold'>Price:</span> {product.price}€</p>
+      <div className='bg-amber-500 py-2 px-3 w-fit mt-3 rounded-lg'>Ver detalles</div>
     </Link>
   );
 };

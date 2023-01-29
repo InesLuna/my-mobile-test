@@ -10,15 +10,15 @@ const Breadcrum = (props) => {
 
   return (
     <div>
-      <Link to='/' className='font-roboto cursor-pointer'>Home</Link>
+      <Link to='/' className='font-roboto text-xl font-bold cursor-pointer'>Home</Link>
       {
         !generalView ?( 
           <>
             {
-              errorView ? <p className='font-roboto cursor-pointer'>Error</p> : (
+              errorView ? <Link to='/' className='font-roboto text-xl font-bold cursor-pointer'><span className='text-amber-500'>/</span>Error</Link> : (
                 <>
                   {
-                    actualProduct ? <Link to={`detail/${actualProduct?.id}`} className='font-roboto cursor-pointer'>/{actualProduct?.model}</Link> : null
+                    actualProduct ? <Link to={`detail/${actualProduct?.id}`} className='font-roboto text-xl font-bold cursor-pointer'><span className='text-amber-500'>/</span>{actualProduct?.model}</Link> : null
                   }
                 </>
               )

@@ -10,7 +10,7 @@ const CartIcon = () => {
   return (
     <div className='flex items-center'>
       {
-        actualCartQuantity ? <p className='text-2xl' >{actualCartQuantity}</p> : null
+        actualCartQuantity ? <p className='text-2xl text-amber-400 font-anton' >{actualCartQuantity}</p> : null
       }
       <img src={cart} alt='shopping cart' className='w-8'/>
     </div>
