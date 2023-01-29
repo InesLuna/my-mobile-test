@@ -5,8 +5,7 @@ import { listAdd } from '../reducer/listSlice';
 import Header from '../components/Header';
 import ItemCard from '../components/ItemCard';
 import GoTopButton from '../components/GoTopButton';
-import Breadcrum from '../components/Breadcrum';
-import SearchInput from '../components/SearchInput';
+import Loading from '../components/Loading';
 
 const GeneralView = () => {
 
@@ -65,13 +64,17 @@ const GeneralView = () => {
   return ( 
     <div className='bg-stone-50 min-h-screen'>
       <Header generalView handleChange={handleChange}/>
-      
       <div className='flex flex-wrap justify-center px-6 md:px-16'>
         {
-          filterProductList.map((p) =>  <ItemCard key={p.id} product={p} /> )
-        }
+          filterProductList ? (
+            <>
+              {
+                filterProductList.map((p) =>  <ItemCard key={p.id} product={p} /> )
+              }
+            </>
+          ) : <Loading/>
+        } 
       </div>
-      
       {
         showButton ? <GoTopButton showButton={showButton}/> : null
       }

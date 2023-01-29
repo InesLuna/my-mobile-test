@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getProductDetails } from '../bff/getProductDetails';
 import { useSelector, useDispatch } from 'react-redux';
 import Header from '../components/Header';
-import Breadcrum from '../components/Breadcrum';
+import Loading from '../components/Loading';
 import Description from '../components/Description';
 import AddButton from '../components/AddButton';
 import Selector from '../components/Selector';
@@ -22,6 +22,7 @@ const DetailView = () => {
   const actualProduct = useSelector(actualProductState);
   const [ selectedColor, setSelectedColor ] = useState(null);
   const [ selectedStorage, setSelectedStorage ] = useState(null);
+  const [ loading, setLoading ] = useState(false);
 
   const dataDetails = async (num) => {
     const data = await getProductDetails(num);

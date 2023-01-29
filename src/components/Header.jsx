@@ -5,7 +5,7 @@ import Breadcrum from './Breadcrum';
 import SearchInput from './SearchInput';
 
 const Header = (props) => {
-  const { generalView, handleChange } = props;
+  const { generalView, handleChange, errorView } = props;
   return (
     <>
       <div className='shadow-xl flex justify-between py-5 px-6 md:px-10 bg-white'>
@@ -13,7 +13,7 @@ const Header = (props) => {
         <CartIcon/>
       </div>
       <div className='flex flex-wrap items-center justify-between p-6 md:p-16'>
-        <Breadcrum generalView/>
+        <Breadcrum generalView errorView/>
         {
           generalView ? <SearchInput handleChange={handleChange}/> : null
         }

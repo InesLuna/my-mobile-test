@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 const Breadcrum = (props) => {
 
-  const { generalView } = props;
+  const { generalView, errorView } = props;
   const actualProductState = (state) => state.detailList.actualProduct;
   const actualProduct = useSelector(actualProductState);
 
@@ -16,9 +16,14 @@ const Breadcrum = (props) => {
     <div>
       <Link to='/' className='font-roboto cursor-pointer'>Home</Link>
       {
-        !generalView ? <Link to={`detail/${actualProduct.id}`} className='font-roboto cursor-pointer'>/{actualProduct.model}</Link> : null
+        !generalView ?( 
+          <>
+            {
+              errorView ? <p className='font-roboto cursor-pointer'>Error</p> : <Link to={`detail/${actualProduct.id}`} className='font-roboto cursor-pointer'>/{actualProduct.model}</Link> 
+            }
+          </>
+        ): null
       }
-      
     </div>
   )
 }
