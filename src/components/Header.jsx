@@ -13,7 +13,7 @@ const Header = (props) => {
         <CartIcon/>
       </div>
       <div className='flex flex-wrap items-center justify-between p-6 md:p-16'>
-        <Breadcrum generalView errorView/>
+        <Breadcrum generalView={generalView} errorView={errorView} />
         {
           generalView ? <SearchInput handleChange={handleChange}/> : null
         }

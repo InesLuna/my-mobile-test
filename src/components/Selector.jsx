@@ -10,7 +10,7 @@ const Selector = (props) => {
         {
           list.map((c, i) => {
             let bgColor = 'bg-white';
-            if(c.name === selectedItem.name) bgColor = 'bg-amber-300'
+            if(selectedItem?.name && c.name === selectedItem.name) bgColor = 'bg-amber-300'
             return(
               <div key={`${c.code}-00${i}`} className={`py-2 px-4 rounded-lg mr-2 cursor-pointer ${bgColor} border-2 border-transparent hover:border-2 hover:border-amber-300`} onClick={(e)=>{setSelectedItem(c);}}>
                 <p className='font-bold font-roboto text-stone-900'>{c.name}</p>
